@@ -1,5 +1,5 @@
-my_virtualenv
-__pycache__
-.ios
-.txt
-.env
+./my_virtualenv
+./__pycache__
+./*.ios
+./*.txt
+./.envgit 
