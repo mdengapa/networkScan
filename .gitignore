@@ -1,3 +1,4 @@
 my_virtualenv
 __pycache__
 devices.env
+*.ios
