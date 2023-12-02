@@ -2,4 +2,4 @@
 ./__pycache__
 ./*.ios
 ./*.txt
-./.envgit 
+./*.env
