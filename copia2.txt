@@ -1,0 +1,91 @@
+
+import qqParamiko
+import qqFiles
+import qqInventory
+
+def createBackup(sshClient, device):
+    sshClient.ssh_Connect(device)
+    output = sshClient.ssh_ExecCommand("sh run")
+    qqFiles.writeMyFile(output, device)
+
+def backup():
+    for ip in qqInventory.inventory.switches:
+        print("Backup of " + qqInventory.inventory.switches[ip])
+        sshClient = qqParamiko.qqSSH()
+        createBackup(sshClient,ip)
+        sshClient.ssh_Close()
+
+# CISCO Command : cdp neigbords
+
+class Device:
+    _switch= {'DeviceID' : '',
+            'LocalPort' : '',
+            'RemotePort' : '',
+            'Platform' : ''
+            }
+    
+    def __init__(self):
+        pass
+    
+    """
+    def __init__(self, deviceID, local, remote, platform):
+        self._switch['DeviceID']  = deviceID
+        self._switch['LocalPort']  = local
+        self._switch['RemotePort']  = remote
+        self._switch['Platform']  = platform
+    """
+    def addDeviceIP(self, deviceID):
+        self._switch['DeviceID']  = deviceID
+
+    def printSwitch(self):
+        return(" .DeviceID: " + self._switch['DeviceID'])
+
+def addDeviceID(input:str, switches):
+    if input[0:1] != " " and len(input.rstrip()) > 1:
+        switch = Device()
+        if len(input) > 50:
+            switchName = input[0:16].rstrip()
+            #switch = Device(switchName.rstrip(),"","","")
+        else:
+            #switch = Device(input.replace("/r",""),"","","")
+            switchName = input.replace("/r","")
+        switch.addDeviceIP(switchName)
+        switches.append(switch)
+
+def printLastSwitch(switches, pos):
+        mSwitch = switches[pos]
+        print("switch item: " + str(pos).zfill(2) + " :" + mSwitch.printSwitch())
+                                   
+def listSwitches(totalSwitches):
+    print("Total de switches:" + str(len(totalSwitches)))
+    countLines = len(totalSwitches)
+    _item = 0
+    while _item < countLines:
+        printLastSwitch(totalSwitches,_item)
+        _item += 1
+
+def readLines(input:str):
+    _fullLine = ""
+    _lineNumber = 1
+    _posCharacter = 0
+    switches:Device = []
+    for _character in input:
+        _posCharacter += 1
+        if _character == "\n":
+            if _lineNumber > 6:
+                addDeviceID(_fullLine, switches)
+            _fullLine = ""
+            _lineNumber += 1
+            _posCharacter = 0
+        else:
+            _fullLine = _fullLine + _character
+    
+    listSwitches(switches)
+           
+def outputAnalyze():
+    host = '192.168.152.187'
+    sshClient = qqParamiko.qqSSH()
+    sshClient.ssh_Connect(host)
+    output = sshClient.ssh_ExecCommand("sh cdp neighbors")
+    #print(output,'utf8')
+    readLines(output)
