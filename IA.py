@@ -1,5 +1,5 @@
-import qqParamiko
-import qqFiles
+import qParamiko
+import qFiles
 import qqInventory
 
 class Device:
@@ -27,7 +27,7 @@ def addDevice(input, switches):
             switches.append(switch)
 
 def searchNeighbors(_host='', _IOSCommand="sh cdp neighbors"):
-    sshClient = qqParamiko.qqSSH()
+    sshClient = qParamiko.qqSSH()
     sshClient.ssh_Connect(_host)
     output = sshClient.ssh_ExecCommand(_IOSCommand)
     switches = readLines(output)
@@ -59,7 +59,7 @@ def getDeviceIP(input):
 
 def searchNeighborsDetail(_host='', _hostname=""):
     IOSCommand = f"sh cdp entry {_hostname}"
-    sshClient = qqParamiko.qqSSH()
+    sshClient = qParamiko.qqSSH()
     sshClient.ssh_Connect(_host)
     output = sshClient.ssh_ExecCommand(IOSCommand)
     sshClient.ssh_Close()

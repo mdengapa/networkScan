@@ -9,10 +9,9 @@ class qqSSH():
 
     def ssh_credentials(self):
         """load_dotenv() """
-        output = dotenv_values("devices.env")
+        output = dotenv_values("credentials.env")
         self._username = output["USER"]
         self._password = output["PASSWORD"]
-
 
     def __init__(self) -> None:
         self.ssh_credentials()

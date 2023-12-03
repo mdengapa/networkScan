@@ -1,5 +1,5 @@
 
-import qqParamiko
+import qParamiko
 
 # CISCO Command : cdp neigbords
 
@@ -86,7 +86,7 @@ def readLines(input:str):
     return switches
            
 def executeCommand(_host, _IOSCommand):
-    _sshClient = qqParamiko.qqSSH()
+    _sshClient = qParamiko.qqSSH()
     _sshClient.ssh_Connect(_host)
     output = _sshClient.ssh_ExecCommand(_IOSCommand)
     #View command output
@@ -124,7 +124,7 @@ def searchNeighbors(_host = '192.168.152.187', _IOSCommand = ("sh cdp neighbors"
 
 def searchNeigborsDetail(_host = '', _hostname=""):
     _IOSCommand = "sh cdp entry " + _hostname
-    _sshClient = qqParamiko.qqSSH()
+    _sshClient = qParamiko.qqSSH()
     _sshClient.ssh_Connect(_host)
     _output = _sshClient.ssh_ExecCommand(_IOSCommand)
     print(_output,'utf8')

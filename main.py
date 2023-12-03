@@ -1,4 +1,4 @@
-import qqIOS_commands
+import qIOS_commands
 import qBackup
 
 def backup():
@@ -6,7 +6,7 @@ def backup():
     qBackup.backup()
 def tracking():
     #qqIOS_commands.searchNeighbors()
-    qqIOS_commands.searchNeighbors()
+    qIOS_commands.searchNeighbors()
     print("Process Complete !!!")
 
 while True:
