@@ -1,19 +1,5 @@
 
 import qqParamiko
-import qqFiles
-import qqInventory
-
-def createBackup(sshClient, device):
-    sshClient.ssh_Connect(device)
-    output = sshClient.ssh_ExecCommand("sh run")
-    qqFiles.writeMyFile(output, device)
-
-def backup():
-    for ip in qqInventory.inventory.switches:
-        print("Backup of " + qqInventory.inventory.switches[ip])
-        sshClient = qqParamiko.qqSSH()
-        createBackup(sshClient,ip)
-        sshClient.ssh_Close()
 
 # CISCO Command : cdp neigbords
 
