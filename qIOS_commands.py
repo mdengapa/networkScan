@@ -124,9 +124,14 @@ def searchNeighbors(_host = '192.168.152.187', _IOSCommand = ("sh cdp neighbors"
 
 def searchNeigborsDetail(_host = '', _hostname=""):
     _IOSCommand = "sh cdp entry " + _hostname
-    _sshClient = qParamiko.qqSSH()
+    _sshClient = qParamiko.qqSSH("CISCO")
     _sshClient.ssh_Connect(_host)
     _output = _sshClient.ssh_ExecCommand(_IOSCommand)
     print(_output,'utf8')
     _sshClient.ssh_Close()
     return _output
+
+def connect2Linux():
+    _sshClient = qParamiko.qqSSH("LINUX")
+    _sshClient.ssh_Connect()
+    _sshClient.ssh_Close()

@@ -13,8 +13,6 @@ git config --global core.excludefile ~/.gitignore_global
   git remote add origin https://github.com/mdengapa/networkScan.git
   git push -u origin master
 
-git rm -r --cached .
-git add .
-git commit -m "version 1"
-git push -u origin master
+git rm -r --cached . && git add .
+git commit -m "new devices in file" && git push -u origin master
 

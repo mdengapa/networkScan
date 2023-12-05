@@ -9,9 +9,14 @@ def tracking():
     qIOS_commands.searchNeighbors()
     print("Process Complete !!!")
 
+def linuxConnect():
+    qIOS_commands.connect2Linux()
+    print("Connection done!!!")
+
 while True:
     print("1. Backup")
     print("2. CDP")
+    print("3. Connect to Linux")
     print("0. Exit")
 
     choice = input("Enter Choice: ")
@@ -22,6 +27,8 @@ while True:
         backup()
     elif (choice =="2"):
         tracking()
+    elif (choice =="3"):
+        linuxConnect()
     elif (choice == "0"):
         print("Exit")
         break
