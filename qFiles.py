@@ -1,6 +1,8 @@
 
 import time
 import os
+import shutil
+import filecmp
 import schedule
 
 def _fileName(deviceName):
@@ -10,9 +12,11 @@ def _fileName(deviceName):
     return output
 
 def writeMyFile(inputData, deviceName):
-    localFile = _fileName(deviceName)
-    with open(localFile, 'w') as my_data:
+    workDir = '/home/q4qum/PKM/PKM/20-AREAS/201-RKF/2010-Network/'
+    workFile = _fileName(deviceName)
+    with open(workDir + workFile, 'w') as my_data:
         my_data.write(inputData)
+    fileUpdate(workDir, workFile)
 
 def readMyFile(inputFile):
     ref = open(inputFile)
@@ -20,9 +24,26 @@ def readMyFile(inputFile):
     ref.close()  
     print(f"Current directory {os.getcwd()}")
     print(ref_content,'utf8')  
-
+    #for line in output.splitlines():
+    #   print(line)
     #sshInvokeShell(ssh, **devnet_csr)
 #schedule.every(15).seconds.do(connectSimple(ssh, **devnet_csr))
 
-    for line in output.splitlines():
-        print(line)
+def fileUpdate(workDir, workFile):
+    # appDir = '/home/q4qum/python/'
+    backupDir = workDir + 'backup/'
+    backupFiles = os.listdir(workDir)
+    oldFile = workFile[0:workFile.index("_")]
+
+    for file in backupFiles:
+        if "_" in file:
+            newFile = file[0:file.index("_")]
+            dateFile = file[file.index("_")+1:len(file)-4]
+            if (oldFile == newFile):
+                if not ((workDir + file) == (workDir + workFile)):
+                    if (filecmp.cmp(workDir + file, workDir + workFile, shallow=False)):
+                        print("Borrar " + file)
+                        os.remove(backupDir + file)
+                    else:
+                        print("Mover a backup: " + workDir + file)
+                        shutil.move(workDir + file, backupDir + file)

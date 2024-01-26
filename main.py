@@ -1,5 +1,6 @@
 import qIOS_commands
 import qBackup
+import MoveExportAvocet
 
 def backup():
     print("Start Backup Process ...")
@@ -29,6 +30,8 @@ while True:
         tracking()
     elif (choice =="3"):
         linuxConnect()
+    elif (choice == "4"):
+        MoveExportAvocet()
     elif (choice == "0"):
         print("Exit")
         break
