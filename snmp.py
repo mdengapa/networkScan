@@ -30,7 +30,7 @@ def get_oids(ip_address):
         _value = str(varBind)[str(varBind).find("=")+2:]
         sqlserver.insertTemperature(_value)
 
-t_end = time.time() + 90 * 1
+t_end = time.time() + 60 * 90
 while time.time() < t_end:
     get_oids("192.168.88.200")
-    time.sleep(5)
+    time.sleep(30)

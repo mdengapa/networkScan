@@ -26,6 +26,7 @@ def insertTemperature(temperatureValue):
     _temperature = temperatureValue
 
     query = "INSERT INTO " + _table + "(signal, temperature) VALUES (CONVERT(DATETIME, '" + _signal + "'), CONVERT(FLOAT, '" + _temperature + "'))"
+    print("Temperature:" + _temperature + " at: " + _signal)
     cursor.execute(query)
     cnxn.commit()
     cursor.close()
