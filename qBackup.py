@@ -1,18 +1,17 @@
-import qParamiko
-import qFiles
+from qParamiko import qqSSH
+from qFile import writeMyFile
 import json
+
 
 def backup():
     with open("device.json") as uFile:
-        jsonData = json.load(uFile)
+        json_data = json.load(uFile)
 
-    for switch in jsonData["switches"]:
+    for switch in json_data["switches"]:
         print(switch["hostName"], " :", switch["hostIP"])
-        sshClient = qParamiko.qqSSH("CISCO")
-        sshClient.ssh_Connect(switch["hostIP"])
-        output = sshClient.ssh_ExecCommand("sh run")
-        qFiles.writeMyFile(output, switch["hostIP"])
-        sshClient.ssh_Close()
-        
+        ssh_client = qqSSH("CISCO")
+        ssh_client.ssh_Connect(switch["hostIP"])
+        output = ssh_client.ssh_ExecCommand("sh run")
+        writeMyFile(output, switch["hostIP"])
+        ssh_client.ssh_Close()
 
-       

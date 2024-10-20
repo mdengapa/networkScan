@@ -1,5 +1,5 @@
 from pysnmp.hlapi import *
-import time
+import time, datetime
 import sqlserver
 
 def get_oids(ip_address):
@@ -28,9 +28,18 @@ def get_oids(ip_address):
 
     for varBind in varBinds:
         _value = str(varBind)[str(varBind).find("=")+2:]
+        now = datetime.datetime.now()
+        _signal = now.strftime("%Y-%m-%d %H:%M:%S")
+        print(_signal + " :: Temperature: " + _value)
         sqlserver.insertTemperature(_value)
-
+'''
 t_end = time.time() + 60 * 90
 while time.time() < t_end:
     get_oids("192.168.88.200")
-    time.sleep(30)
+    time.sleep(5)
+'''
+#get_oids("192.168.88.200")
+sqlserver.selectQuery("NetworkEquipment")
+
+
+
